@@ -3,8 +3,6 @@
 Main file
 """
 
-import logging
-
 get_logger = __import__('filtered_logger').get_logger
 PII_FIELDS = __import__('filtered_logger').PII_FIELDS
 

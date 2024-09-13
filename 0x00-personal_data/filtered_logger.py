@@ -2,6 +2,7 @@
 """
 Here the module description
 """
+import csv
 from datetime import datetime
 import logging
 import re
@@ -43,7 +44,7 @@ def get_logger() -> logging.Logger:
     """ Here the get logger function defined """
     logger = logging.Logger(name="user_data", level=logging.INFO)
     logger.propagate = False
-    logger.addHandler(logging.StreamHandler(stream=RedactingFormatter()))
+    logger.addHandler(logging.StreamHandler(stream=RedactingFormatter))
     for filter in PII_FIELDS:
         logger.addFilter(filter=filter)
     return logger
