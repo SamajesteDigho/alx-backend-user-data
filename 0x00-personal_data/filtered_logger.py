@@ -2,11 +2,14 @@
 """
 Here the module description
 """
-import csv
 from datetime import datetime
 import logging
+import os
+
 import re
 from typing import List
+
+import mysql.connector
 
 PII_FIELDS = ('name', 'email', 'phone', 'ssn', 'ip')
 
@@ -48,3 +51,19 @@ def get_logger() -> logging.Logger:
     for filter in PII_FIELDS:
         logger.addFilter(filter=filter)
     return logger
+
+
+def get_db() -> mysql.connector.connection.MySQLConnection:
+    """ Getting the database """
+    username = os.getenv('PERSONAL_DATA_DB_USERNAME', 'root')
+    password = os.getenv('PERSONAL_DATA_DB_PASSWORD', 'root')
+    host = os.getenv('PERSONAL_DATA_DB_HOST', 'localhost')
+    db_name = os.getenv('PERSONAL_DATA_DB_NAME')
+
+    conn = mysql.connector.connection.MySQLConnection(
+        user=username,
+        password=password,
+        host=host,
+        db=db_name
+    )
+    return conn
