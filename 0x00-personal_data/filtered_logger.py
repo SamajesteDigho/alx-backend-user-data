@@ -43,11 +43,12 @@ class RedactingFormatter(logging.Formatter):
 
 def get_logger() -> logging.Logger:
     """ Here the get logger function defined """
-    logger = logging.Logger(name="user_data", level=logging.INFO)
+    logger = logging.getLogger(name="user_data")
+    logger.setLevel(logging.INFO)
     logger.propagate = False
-    logger.addHandler(logging.StreamHandler(stream=RedactingFormatter))
-    for filter in PII_FIELDS:
-        logger.addFilter(filter=filter)
+    logger.addHandler(logging.StreamHandler(
+        stream=RedactingFormatter(fields=PII_FIELDS))
+    )
     return logger
 
 
@@ -65,3 +66,19 @@ def get_db() -> connector.connection.MySQLConnection:
         db=db_name
     )
     return conn
+
+
+def main():
+    """ Here the main function """
+    db = get_db()
+    logger = get_logger()
+    
+    cursor = db.cursor()
+    cursor.execute('SELECT * FROM users;')
+    for row in cursor:
+        logger.info(row
+        )
+
+
+if __name__ == "__main__":
+    main()
