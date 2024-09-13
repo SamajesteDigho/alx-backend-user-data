@@ -46,6 +46,6 @@ def get_logger() -> logging.Logger:
         propagate=False,
     )
     formatter = RedactingFormatter(fields=PII_FIELDS)
-    logger.addHandler(formatter)
+    logger.addHandler(formatter.format)
     logger.addFilter(formatter.fields)
     return logger
