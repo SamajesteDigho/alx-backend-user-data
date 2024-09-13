@@ -41,13 +41,11 @@ class RedactingFormatter(logging.Formatter):
 
 def get_logger() -> logging.Logger:
     """ Here the get logger function defined """
-    formatter = RedactingFormatter(fields=PII_FIELDS)
-    return logging.LogRecord(
+    logger = logging.Logger(
         name="user_data",
         level=logging.INFO,
-        pathname=None,
-        lineno=None,
-        msg='message',
-        func=formatter,
-        sinfo=None
+        propagate=False,
     )
+    logger.addHandler(RedactingFormatter)
+    logger.addFilter(PII_FIELDS)
+    return logger
