@@ -73,8 +73,8 @@ def main():
     """ Here the main function """
     db = get_db()
     logger = get_logger()
-
     cursor = db.cursor()
+
     cursor.execute('SELECT * FROM users;')
     rows = cursor.fetchall()
     for row in rows:
