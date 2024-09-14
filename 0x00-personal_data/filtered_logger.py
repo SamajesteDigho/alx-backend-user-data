@@ -9,7 +9,7 @@ import re
 from typing import List
 import mysql.connector as connector
 
-PII_FIELDS = ('name', 'email', 'phone', 'ssn', 'ip')
+PII_FIELDS = ('name', 'email', 'phone', 'ssn', 'password')
 
 
 def filter_datum(fields: List[str], redaction: str,
@@ -46,9 +46,10 @@ def get_logger() -> logging.Logger:
     logger = logging.getLogger(name="user_data")
     logger.setLevel(logging.INFO)
     logger.propagate = False
-    logger.addHandler(logging.StreamHandler(
-        stream=RedactingFormatter(fields=PII_FIELDS))
-    )
+
+    handler = logging.StreamHandler()
+    handler.setFormatter(fmt=RedactingFormatter(fields=PII_FIELDS))
+    logger.addHandler(handler)
     return logger
 
 
@@ -76,7 +77,7 @@ def main():
     cursor = db.cursor()
     cursor.execute('SELECT * FROM users;')
     for row in cursor:
-        logger.info(row)
+        logger.makeRecord(level=logging.INFO, msg=row)
 
 
 if __name__ == "__main__":
