@@ -3,7 +3,7 @@
 """
 import base64
 from typing import Tuple, TypeVar
-from .auth import Auth
+from api.v1.auth.auth import Auth
 from api.v1.views.users import User
 
 
@@ -49,7 +49,9 @@ class BasicAuth(Auth):
             return None, None
         if ':' not in decoded_base64_authorization_header:
             return None, None
+        print(data)
         data = decoded_base64_authorization_header.split(':')
+        print(data)
         return data[0], data[1]
 
     def user_object_from_credentials(self, user_email: str,
@@ -74,12 +76,4 @@ class BasicAuth(Auth):
         dec_data = self.decode_base64_authorization_header(auth_data)
         cred = self.extract_user_credentials(dec_data)
         entity = self.user_object_from_credentials(cred[0], cred[1])
-        # user = {
-        #     'created_at': entity.get('created_at'),
-        #     'email': entity.get('email'),
-        #     'first_name': entity.get('first_name'),
-        #     'id': entity.get('id'),
-        #     'last_name': entity.get('last_name'),
-        #     'updated_at': entity.get('updated_at')
-        # }
         return entity
