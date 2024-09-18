@@ -10,13 +10,13 @@ class Auth:
 
     def require_auth(self, path: str, excluded_paths: List[str]) -> bool:
         """ Requiring authentication """
-        if path is None  or excluded_paths is None:
+        if path is None or excluded_paths is None:
             return True
-        new = None
+        new = path
         if path[-1] == '/':
-            new = f"{path[:-1]}"
+            new = path[:-1]
         else:
-            new = f"{path}/"
+            new = "{}/".format(path)
         if path in excluded_paths or new in excluded_paths:
             return False
         return True
