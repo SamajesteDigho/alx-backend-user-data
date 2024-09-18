@@ -8,4 +8,5 @@ class BasicAuth(Auth):
     """ Class for defining basic authentiation """
 
     def __init__(self) -> None:
+        """ Here the initialization """
         super().__init__()
