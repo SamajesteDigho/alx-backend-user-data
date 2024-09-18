@@ -66,3 +66,20 @@ class BasicAuth(Auth):
         if not users[0].is_valid_password(user_pwd):
             return None
         return users[0]
+
+    def current_user(self, request=None) -> TypeVar('User'):  # type: ignore
+        """ Here we get the current user """
+        auth_header = self.authorization_header(request=request)
+        auth_data = self.extract_base64_authorization_header(auth_header)
+        dec_data = self.decode_base64_authorization_header(auth_data)
+        cred = self.extract_user_credentials(dec_data)
+        entity = self.user_object_from_credentials(cred[0], cred[1])
+        # user = {
+        #     'created_at': entity.get('created_at'),
+        #     'email': entity.get('email'),
+        #     'first_name': entity.get('first_name'),
+        #     'id': entity.get('id'),
+        #     'last_name': entity.get('last_name'),
+        #     'updated_at': entity.get('updated_at')
+        # }
+        return entity
