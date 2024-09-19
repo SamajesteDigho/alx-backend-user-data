@@ -64,14 +64,15 @@ def before_request_management():
 if __name__ == "__main__":
     host = getenv("API_HOST", "0.0.0.0")
     port = getenv("API_PORT", "5000")
-    auth_type = getenv("AUTH_TYPE", None)
-    if auth_type == 'auth':
-        from api.v1.auth.auth import Auth
-        auth = Auth()
-    elif auth_type == 'basic_auth':
+    auth_type = getenv("AUTH_TYPE")
+    print("{}$".format(auth_type))
+    if auth_type == 'basic_auth':
         from api.v1.auth.basic_auth import BasicAuth
         auth = BasicAuth()
     elif auth_type == 'session_auth':
         from api.v1.auth.session_auth import SessionAuth
         auth = SessionAuth()
+    elif auth_type == 'auth':
+        from api.v1.auth.auth import Auth
+        auth = Auth()
     app.run(host=host, port=port)
