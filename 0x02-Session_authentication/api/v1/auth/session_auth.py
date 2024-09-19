@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """ Basic Authentication module
 """
+import os
 from api.v1.auth.auth import Auth
 from uuid import uuid4
 
@@ -26,3 +27,11 @@ class SessionAuth(Auth):
         if not isinstance(session_id, str):
             return None
         return self.user_id_by_session_id.get(session_id)
+
+    def session_cookie(self, request=None):
+        """ Preparing session cookies """
+        if request is None:
+            return None
+        cookie_name = os.getenv('SESSION_NAME')
+        session_id = request.cookies.get(cookie_name)
+        return session_id
