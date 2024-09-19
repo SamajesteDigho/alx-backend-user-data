@@ -32,7 +32,7 @@ class SessionAuth(Auth):
         """ Preparing session cookies """
         if request is None:
             return None
-        cookie_name = os.getenv('SESSION_NAME')
+        cookie_name = os.getenv('SESSION_NAME', None)
         if cookie_name is None:
             return None
         session_id = request.cookies.get(cookie_name, None)
