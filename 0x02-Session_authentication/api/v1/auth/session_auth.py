@@ -2,7 +2,9 @@
 """ Basic Authentication module
 """
 import os
+from typing import TypeVar
 from api.v1.auth.auth import Auth
+from api.v1.views.users import User
 from uuid import uuid4
 
 
@@ -36,3 +38,9 @@ class SessionAuth(Auth):
         if cookie_name is None:
             return None
         return request.cookies.get(cookie_name, None)
+
+    def current_user(self, request=None) -> TypeVar('User'):  # type: ignore
+        """ Getting current user """
+        session_id = self.session_cookie(request=request)
+        user_id = self.user_id_for_session_id(session_id=session_id)
+        return User.get(id=user_id)
