@@ -13,8 +13,7 @@ def _hash_password(password: str) -> bytes:
     """ Here we hash the password """
     salt = bcrypt.gensalt()
     by_pass = bytes(password, encoding='utf-8')
-    hashed = bcrypt.hashpw(password=by_pass, salt=salt)
-    return hashed
+    return bcrypt.hashpw(password=by_pass, salt=salt)
 
 
 def _generate_uuid() -> str:
@@ -25,7 +24,6 @@ def _generate_uuid() -> str:
 class Auth:
     """ Auth class to interact with the authentication database.
     """
-
     def __init__(self):
         self._db = DB()
 
