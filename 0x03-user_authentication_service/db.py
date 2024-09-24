@@ -31,6 +31,11 @@ class DB:
             DBSession = sessionmaker(bind=self._engine)
             self.__session = DBSession()
         return self.__session
+    
+    @property
+    def session(self) -> Session:
+        """ Collect the session """
+        return self._session
 
     def add_user(self, email: str, hashed_password: str) -> User:
         """ Adding a user to the DB """
