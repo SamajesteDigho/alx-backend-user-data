@@ -13,7 +13,8 @@ def _hash_password(password: str) -> bytes:
     """ Here we hash the password """
     salt = bcrypt.gensalt()
     by_pass = bytes(password, encoding='utf-8')
-    return bcrypt.hashpw(password=by_pass, salt=salt)
+    hashed = bcrypt.hashpw(password=by_pass, salt=salt)
+    return hashed
 
 
 def _generate_uuid() -> str:
