@@ -1,9 +1,8 @@
 #!/usr/bin/env python3
 """ Our Flask module as we like it
 """
-from flask import Flask, abort, jsonify, redirect, request, session
+from flask import Flask, abort, jsonify, redirect, request
 from auth import Auth
-
 
 AUTH = Auth()
 app = Flask(__name__)
@@ -16,7 +15,7 @@ def index():
 
 
 @app.route("/users", methods=["POST"], strict_slashes=False)
-def register():
+def users():
     """ Endpoint for registering a user """
     email = request.form.get("email")
     password = request.form.get("password")
