@@ -42,8 +42,8 @@ class Auth:
         """ Validating password """
         try:
             user = self._db.find_user_by(email=email)
-            crp_pass = password.encode('utf-8')
-            if bcrypt.checkpw(crp_pass, user.hashed_password):
+            b_pass = bytes(password, encoding='utf-8')
+            if bcrypt.checkpw(b_pass, user.hashed_password):
                 return True
             else:
                 return False
