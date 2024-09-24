@@ -59,7 +59,7 @@ class DB:
             except AttributeError:
                 raise InvalidRequestError
         else:
-            return None
+            raise NoResultFound
 
     def update_user(self, user_id: int, **kwargs) -> None:
         """ Let's update the user now
