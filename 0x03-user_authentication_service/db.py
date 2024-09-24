@@ -61,7 +61,7 @@ class DB:
         else:
             return None
 
-    def update_user(self, user_id: int, **kwargs):
+    def update_user(self, user_id: int, **kwargs) -> None:
         """ Let's update the user now
         """
         try:
@@ -71,3 +71,5 @@ class DB:
             self._session.commit()
         except InvalidRequestError:
             raise ValueError
+        except NoResultFound:
+            return None
