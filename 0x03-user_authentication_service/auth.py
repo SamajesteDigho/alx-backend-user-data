@@ -3,8 +3,9 @@
 """
 from typing import Union
 import bcrypt
-from sqlalchemy.exc import NoResultFound
+from sqlalchemy.orm.exc import NoResultFound
 from uuid import uuid4
+
 from db import DB
 from user import User
 
