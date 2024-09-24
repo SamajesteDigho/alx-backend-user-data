@@ -12,7 +12,7 @@ from user import User
 def _hash_password(password: str) -> bytes:
     """ Here we hash the password """
     salt = bcrypt.gensalt()
-    by_pass = password.encode('utf-8')
+    by_pass = bytes(password, encoding='utf-8')
     return bcrypt.hashpw(password=by_pass, salt=salt)
 
 
