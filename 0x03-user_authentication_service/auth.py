@@ -37,8 +37,6 @@ class Auth:
             hpass = _hash_password(password=password)
             user = self._db.add_user(email=email, hashed_password=hpass)
             return user
-        except Exception:
-            return None
 
     def valid_login(self, email: str, password: str) -> bool:
         """ Validating password """
