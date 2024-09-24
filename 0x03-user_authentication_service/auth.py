@@ -53,7 +53,6 @@ class Auth:
     def create_session(self, email: str) -> str:
         """ Creating a new session """
         try:
-            self._db.find_user_by(email=email)
             sess_id = _generate_uuid()
             self._db.update_user(session_id=sess_id)
             return sess_id
