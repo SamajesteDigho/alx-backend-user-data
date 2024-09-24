@@ -31,7 +31,8 @@ class DB:
         return self.__session
 
     def add_user(self, email: str, hashed_password: str) -> User:
-        """ Adding a user to the DB """
+        """ Adding a user to the DB
+        """
         try:
             user = User(email=email, hashed_password=hashed_password)
             self._session.add(user)
@@ -41,7 +42,8 @@ class DB:
             return None
 
     def find_user_by(self, **kwargs) -> User:
-        """ Finding a user from the DB """
+        """ Finding a user from the DB
+        """
         if kwargs is not None:
             try:
                 query = self._session.query(User)
@@ -57,7 +59,8 @@ class DB:
                 raise InvalidRequestError
 
     def update_user(self, user_id: int, **kwargs):
-        """ Let's update the user now """
+        """ Let's update the user now
+        """
         try:
             user = self.find_user_by(id=user_id)
             for key, value in kwargs.items():
