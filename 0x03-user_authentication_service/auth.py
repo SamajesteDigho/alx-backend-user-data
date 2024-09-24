@@ -23,7 +23,9 @@ def _generate_uuid() -> str:
 
 
 class Auth:
-    """ Authentication class definition """
+    """ Auth class to interact with the authentication database.
+    """
+
     def __init__(self):
         self._db = DB()
 
@@ -31,7 +33,7 @@ class Auth:
         """ Registering a user """
         try:
             user = self._db.find_user_by(email=email)
-            raise ValueError("User {} already exist".format(email))
+            raise ValueError("User {} already exists".format(email))
         except NoResultFound:
             hpass = _hash_password(password=password)
             user = self._db.add_user(email=email, hashed_password=hpass)
