@@ -71,3 +71,5 @@ class DB:
             self._session.commit()
         except InvalidRequestError:
             raise ValueError
+        except Exception:
+            raise ValueError
