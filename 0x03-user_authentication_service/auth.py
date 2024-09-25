@@ -85,16 +85,16 @@ class Auth:
         """ Initiating password reset token """
         try:
             user = self._db.find_user_by(email=email)
-            user.reset_token = _generate_uuid()
-            self._db._session.commit()
-            return user.reset_token
+            token = _generate_uuid()
+            self._db.update_user(user_id=user.id, reset_token=token)
+            return token
         except Exception:
             raise ValueError('User does not exist')
 
     def update_password(self, reset_token: str, password: str):
         """ Updating user password """
         try:
-            user = self._db.find_user_by(reset_token)
+            user = self._db.find_user_by(reset_token=reset_token)
             hashed = _hash_password(password=password)
             self._db.update_user(user_id=user.id,
                                  reset_token=None,
