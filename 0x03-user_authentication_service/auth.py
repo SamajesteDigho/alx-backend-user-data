@@ -101,4 +101,4 @@ class Auth:
                                  password=hashed)
             return None
         except Exception:
-            raise ValueError('Reset token not found')
+            raise ValueError
