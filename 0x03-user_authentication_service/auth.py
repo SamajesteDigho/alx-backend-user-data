@@ -102,3 +102,5 @@ class Auth:
             return None
         except NoResultFound:
             raise ValueError
+        except Exception:
+            raise Exception
