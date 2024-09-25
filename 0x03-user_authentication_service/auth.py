@@ -100,7 +100,5 @@ class Auth:
                                  reset_token=None,
                                  password=hashed)
             return None
-        except NoResultFound:
-            raise ValueError
         except Exception:
-            raise Exception
+            raise ValueError
